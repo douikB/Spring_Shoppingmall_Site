@@ -37,13 +37,29 @@ public class Board extends BaseEntity {
     private char deleteYn; //삭제 여부
 
     @Builder
+<<<<<<< HEAD
     public Board(String title, String content, int hits, char deleteYn, String uploadFileName, String storeFileName) {
+=======
+    public Board(String title, String content, int hits, char deleteYn, String fileName) {
+>>>>>>> c1f45c957b60397af908407012f2ec8e3437083e
         this.title = title;
         this.content = content;
         this.hits = hits;
         this.deleteYn = deleteYn;
+<<<<<<< HEAD
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
+=======
+        this.uploadFileName = fileName;
+        this.storeFileName = this.uploadFileName;
+    }
+
+    public void updateBoard(BoardFormDto boardFormDto){
+        this.title = boardFormDto.getTitle();
+        this.content = boardFormDto.getContent();
+        this.uploadFileName = boardFormDto.getUploadFileName();
+
+>>>>>>> c1f45c957b60397af908407012f2ec8e3437083e
     }
 
     public void removeBoard() {

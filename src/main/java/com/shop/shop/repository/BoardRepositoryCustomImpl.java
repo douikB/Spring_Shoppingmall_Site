@@ -3,15 +3,24 @@ package com.shop.shop.repository;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+<<<<<<< HEAD
 import com.shop.shop.dto.BoardSearchDto;
+=======
+import com.shop.shop.dto.BoardListDto;
+>>>>>>> c1f45c957b60397af908407012f2ec8e3437083e
 import com.shop.shop.entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+<<<<<<< HEAD
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+=======
+
+import javax.persistence.EntityManager;
+>>>>>>> c1f45c957b60397af908407012f2ec8e3437083e
 import java.util.List;
 
 public class BoardRepositoryCustomImpl implements BoardRepositoryCustom{
@@ -22,6 +31,7 @@ public class BoardRepositoryCustomImpl implements BoardRepositoryCustom{
         this.queryFactory = new JPAQueryFactory(em);
     }
 
+<<<<<<< HEAD
     private BooleanExpression regDtsAfter(String searchDateType){
 
         LocalDateTime dateTime = LocalDateTime.now();
@@ -59,6 +69,14 @@ public class BoardRepositoryCustomImpl implements BoardRepositoryCustom{
                 .where(regDtsAfter(boardSearchDto.getSearchDateType()),
                         searchByLike(boardSearchDto.getSearchBy(), boardSearchDto.getSearchQuery()),
                         QBoard.board.deleteYn.eq('N'))
+=======
+
+    @Override
+    public Page<Board> getBoardList(BoardListDto boardListDto, Pageable pageable) {
+        QueryResults<Board> results = queryFactory
+                .selectFrom(QBoard.board)
+                .where(QBoard.board.deleteYn.eq('N'))
+>>>>>>> c1f45c957b60397af908407012f2ec8e3437083e
                 .orderBy(QBoard.board.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

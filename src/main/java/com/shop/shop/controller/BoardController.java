@@ -2,7 +2,10 @@ package com.shop.shop.controller;
 
 import com.shop.shop.dto.BoardFormDto;
 import com.shop.shop.dto.BoardListDto;
+<<<<<<< HEAD
 import com.shop.shop.dto.BoardSearchDto;
+=======
+>>>>>>> c1f45c957b60397af908407012f2ec8e3437083e
 import com.shop.shop.dto.ItemFormDto;
 import com.shop.shop.entity.Board;
 import com.shop.shop.entity.Member;
@@ -47,6 +50,7 @@ public class BoardController {
     @Value("${file.dir}")
     private String fileDir;
 
+<<<<<<< HEAD
     @GetMapping(value = {"/list", "/list/{page}"})
     public String showList(BoardSearchDto boardSearchDto, @PathVariable("page") Optional<Integer> page, Model model){
 
@@ -55,6 +59,16 @@ public class BoardController {
 
         model.addAttribute("boards", boards);
         model.addAttribute("boardListDto", boardSearchDto);
+=======
+    @GetMapping("/list")
+    public String showList(BoardListDto boardListDto, @PathVariable("page") Optional<Integer> page, Model model){
+
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+        Page<Board> boards = boardService.getBoardList(boardListDto, pageable);
+
+        model.addAttribute("boards", boards);
+        model.addAttribute("boardListDto", boardListDto);
+>>>>>>> c1f45c957b60397af908407012f2ec8e3437083e
         model.addAttribute("maxPage", 5);
 
         return "board/boardList";
