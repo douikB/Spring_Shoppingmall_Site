@@ -57,8 +57,18 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
+<<<<<<< HEAD
     public Page<Board> getBoardList(BoardSearchDto boardSearchDto, Pageable pageable){
         return boardRepository.getBoardList(boardSearchDto, pageable);
+=======
+<<<<<<< HEAD
+    public Page<Board> getBoardList(BoardSearchDto boardSearchDto, Pageable pageable){
+        return boardRepository.getBoardList(boardSearchDto, pageable);
+=======
+    public Page<Board> getBoardList(BoardListDto boardListDto, Pageable pageable){
+        return boardRepository.getBoardList(boardListDto, pageable);
+>>>>>>> c1f45c957b60397af908407012f2ec8e3437083e
+>>>>>>> 5d23f83e1ce9a7e1434bd25d17ead006f6e008c6
     }
 
     public Long updateBoard(BoardFormDto boardFormDto, MultipartFile file) throws Exception {
@@ -66,7 +76,14 @@ public class BoardService {
         Board board = boardRepository.findById(boardFormDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
 
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> c1f45c957b60397af908407012f2ec8e3437083e
+>>>>>>> 5d23f83e1ce9a7e1434bd25d17ead006f6e008c6
         String oriImageName = file.getOriginalFilename();
         String storeImageName = "";
         String imgUrl = "";;
@@ -79,6 +96,14 @@ public class BoardService {
             board.setUploadFileName(oriImageName);
         }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+        board.updateBoard(boardFormDto);
+
+>>>>>>> c1f45c957b60397af908407012f2ec8e3437083e
+>>>>>>> 5d23f83e1ce9a7e1434bd25d17ead006f6e008c6
         return board.getId();
     }
 
