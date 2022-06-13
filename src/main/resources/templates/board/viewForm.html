@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/layout1}">
+
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function (){
+            var errorMessage = [[${errorMessage}]];
+            if(errorMessage != null){
+                alert(errorMessage);
+            }
+        });
+    </script>
+</th:block>
+
+
+<!--사용자 CSS 추가-->
+<th:block layout:fragment="css">
+    <style>
+        select {
+            margin-right: 10px;
+        }
+
+    </style>
+</th:block>
+
+
+<div layout:fragment="content">
+
+    <form role="form" method="get">
+        <table class="table">
+            <thead>
+            <tr class="table-active">
+                <h2 th:text="${boardFormDto.title}"></h2>
+                <th scope="col" >작성자 : [[${boardFormDto.writer}]]</th>
+                <th scope="col-md-2" style="width: 10%" >조회수 : [[${boardFormDto.hits}]]</th>
+                <th scope="col" class="text-right" style="width: 20%" th:text="'작성일자 : ' + ${#temporals.format(boardFormDto.regTime, 'YYYY-MM-dd HH:mm')}"></th>
+            </tr>
+            </thead>
+        </table>
+
+        <p th:text="${boardFormDto.content}" class="form-control" style="height: 375px;">
+        </p>
+
+        <div th:if="${not #strings.isEmpty(boardFormDto.uploadFileName)}">
+            <a class="" th:href="|/board/attach/${boardFormDto.id}|">첨부파일 : [[${boardFormDto.uploadFileName}]]</a>
+        </div>
+
+
+
+        <div sec:authorize="isAuthenticated()">
+            <div th:if="${boardFormDto.createdBy eq user}">
+                <div style="text-align: right">
+                    <button th:formaction="@{'/board/modify/' + ${boardFormDto.id}}" type="submit" class="btn btn-primary">수정</button>
+                    <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">삭제</button>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal" tabindex="-1" id="deleteModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">게시글 삭제</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>게시글을 삭제하시겠습니까?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                                <button type="submit" th:formaction="@{'/board/delete/' + ${boardFormDto.id}}" class="btn btn-primary">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div sec:authorize="" style="text-align: right">
+
+        </div>
+        <div style="text-align: center">
+            <button th:formaction="@{/board/list}" type="submit" class="btn btn-primary">뒤로가기</button>
+        </div>
+    </form>
+
+</div>
+
+</html>
